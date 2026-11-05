@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="FontFile" path="res://fallback_fonts/_agon_default_font.tres" id="1_4j2pw"]
+
+[resource]
+default_font = ExtResource("1_4j2pw")

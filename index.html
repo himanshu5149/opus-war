@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>Godot Game</title>
+		<style>
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	color: white;
+	background-color: black;
+	overflow: hidden;
+	touch-action: none;
+}
+
+#canvas {
+	display: block;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+#status, #status-splash, #status-progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+#status, #status-splash {
+	top: 0;
+	bottom: 0;
+}
+
+#status {
+	background-color: #242424;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+}
+
+#status-splash {
+	max-height: 100%;
+	max-width: 100%;
+	margin: auto;
+}
+
+#status-splash.show-image--false {
+	display: none;
+}
+
+#status-splash.fullsize--true {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+#status-splash.use-filter--false {
+	image-rendering: pixelated;
+}
+
+#status-progress, #status-notice {
+	display: none;
+}
+
+#status-progress {
+	bottom: 10%;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#status-notice {
+	background-color: #5b3943;
+	border-radius: 0.5rem;
+	border: 1px solid #9b3943;
+	color: #e0e0e0;
+	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
+	line-height: 1.3;
+	margin: 0 2rem;
+	overflow: hidden;
+	padding: 1rem;
+	text-align: center;
+	z-index: 1;
+}
+		</style>
+		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+
+	  <script data-arena-recording="true">(function(){
+"use strict";
+var SK="__arena_rec",RRWEB_CDN="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.4/dist/rrweb.min.js";
+var MAX_RECORDING_MS=600000,MAX_RRWEB_EVENTS=30000,MAX_INTERACTIONS=5000,MAX_CURSOR_POINTS=10000,recStopped=false;
+var stored=null;try{var raw=sessionStorage.getItem(SK);if(raw)stored=JSON.parse(raw);}catch(ex){}
+var meta=stored?stored.m||null:null,rrwebEvents=stored?stored.r||[]:[],rrwebStarted=false,startTime=stored?stored.st||Date.now():Date.now();
+var interactions=stored?stored.i||[]:[],cursorPath=stored?stored.c||[]:[],lastCursorSample=0,lastScrollSample=0;
+var pageHeight=document.documentElement.scrollHeight;
+var viewport={width:window.innerWidth,height:window.innerHeight};
+function isCapped(){if(recStopped)return true;if(Date.now()-startTime>=MAX_RECORDING_MS){recStopped=true;return true;}return false;}
+function persist(){try{var d=JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime});sessionStorage.setItem(SK,d);}catch(ex){rrwebEvents=rrwebEvents.slice(Math.floor(rrwebEvents.length/2));try{sessionStorage.setItem(SK,JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime}));}catch(ex2){}}}
+setInterval(persist,5000);
+window.addEventListener("resize",function(){viewport={width:window.innerWidth,height:window.innerHeight};pageHeight=document.documentElement.scrollHeight;});
+document.addEventListener("click",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var el=e.target;var tag=el.tagName?el.tagName.toLowerCase():"";var text=(el.textContent||"").trim().substring(0,80);var classes=el.className&&typeof el.className==="string"?el.className.substring(0,120):"";interactions.push({type:"click",t:Date.now()-startTime,x:Math.round(e.clientX),y:Math.round(e.clientY),element:{tag:tag,text:text,classes:classes}});},true);
+window.addEventListener("scroll",function(){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var now=Date.now();if(now-lastScrollSample<200)return;lastScrollSample=now;var scrollY=Math.round(window.scrollY||window.pageYOffset||0);var depthPct=pageHeight>viewport.height?Math.min(100,Math.round(((scrollY+viewport.height)/pageHeight)*100)):100;interactions.push({type:"scroll",t:now-startTime,y:scrollY,depth_pct:depthPct});},{passive:true});
+document.addEventListener("mousemove",function(e){if(isCapped()||cursorPath.length>=MAX_CURSOR_POINTS)return;var now=Date.now();if(now-lastCursorSample<250)return;lastCursorSample=now;cursorPath.push([Math.round(e.clientX),Math.round(e.clientY),now-startTime]);},{passive:true});
+document.addEventListener("keydown",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;interactions.push({type:"keydown",t:Date.now()-startTime,key:e.key});},true);
+function buildAnalytics(){if(!meta)return null;var ph=document.documentElement.scrollHeight;var maxScroll=0,clickElements={},firstClick=null,firstScroll=null,totalDistance=0;for(var i=0;i<interactions.length;i++){var ev=interactions[i];if(ev.type==="scroll"){if(ev.depth_pct>maxScroll)maxScroll=ev.depth_pct;if(!firstScroll)firstScroll=ev.t;}if(ev.type==="click"){if(!firstClick)firstClick=ev.t;var key=ev.element.tag+":"+ev.element.text.substring(0,30);clickElements[key]=true;}}for(var j=1;j<cursorPath.length;j++){var dx=cursorPath[j][0]-cursorPath[j-1][0];var dy=cursorPath[j][1]-cursorPath[j-1][1];totalDistance+=Math.sqrt(dx*dx+dy*dy);}var duration=Date.now()-startTime;var clickHeatmap=[];for(var k=0;k<interactions.length;k++){if(interactions[k].type==="click")clickHeatmap.push([interactions[k].x,interactions[k].y]);}return{generation_id:meta.generationId,tournament_id:meta.tournamentId,started_at:new Date(startTime).toISOString(),ended_at:new Date().toISOString(),duration_ms:duration,viewport:viewport,page_height:ph,interactions:interactions,cursor_path:cursorPath,click_heatmap:clickHeatmap,summary:{total_clicks:clickHeatmap.length,total_scrolls:interactions.filter(function(e){return e.type==="scroll";}).length,max_scroll_depth_pct:maxScroll,unique_elements_clicked:Object.keys(clickElements).length,time_to_first_click_ms:firstClick,time_to_first_scroll_ms:firstScroll,cursor_distance_px:Math.round(totalDistance),active_time_ms:duration}};}
+function loadRrweb(){if(rrwebStarted)return;rrwebStarted=true;var s=document.createElement("script");s.src=RRWEB_CDN;s.onload=function(){var rec=(window.rrweb&&window.rrweb.record)||window.rrwebRecord;if(!rec)return;rec({emit:function(event){if(rrwebEvents.length>=MAX_RRWEB_EVENTS||isCapped())return;rrwebEvents.push(event);}});};s.onerror=function(){};document.head.appendChild(s);}
+window.addEventListener("message",function(e){if(!e.data||typeof e.data.type!=="string")return;if(e.data.type==="arena:init"){if(!meta)startTime=Date.now();meta={generationId:e.data.generationId||e.data.modelId,tournamentId:e.data.tournamentId};persist();loadRrweb();if(e.source)e.source.postMessage({type:"arena:init-ack",generationId:meta.generationId},"*");}if(e.data.type==="arena:flush"){var resp={type:"arena:recording-data",generationId:meta?meta.generationId:null,rrwebEvents:rrwebEvents,analytics:buildAnalytics()};try{sessionStorage.removeItem(SK);}catch(ex){}if(e.source)e.source.postMessage(resp,"*");}});
+loadRrweb();
+})();</script>
+  <script data-arena-views="true">(function(){var isTop=false;try{isTop=window.self===window.top;}catch(e){}if(!isTop)return;window.__ARENA_META={generationId:"claude-opus-5",tournamentId:"10dd47bd-e309-4eed-bfaa-17c3959d1ae9"};var payload={tournamentId:"10dd47bd-e309-4eed-bfaa-17c3959d1ae9",modelId:"claude-opus-5"};try{var r=document.referrer;if(r){var u=new URL(r);payload.referrerDomain=u.hostname;}}catch(e){}try{var vid=null;try{vid=localStorage.getItem('arena_vid');}catch(e){}if(!vid){vid=typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)).slice(0,32);try{localStorage.setItem('arena_vid',vid);}catch(e){}}if(vid)payload.viewerId=vid;}catch(e){}try{fetch("https://www.designarena.ai/api/agon/page-views",{"method":"POST","headers":{"Content-Type":"application/json"},"body":JSON.stringify(payload),"keepalive":true});}catch(e){}})();</script>
+</head>
+	<body>
+		<canvas id="canvas">
+			Your browser does not support the canvas tag.
+		</canvas>
+
+		<noscript>
+			Your browser does not support JavaScript.
+		</noscript>
+
+		<div id="status">
+			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
+			<progress id="status-progress"></progress>
+			<div id="status-notice"></div>
+		</div>
+
+		<script src="https://pub-265459c7a52643fbaf39d59c99be6a7e.r2.dev/godot/4.6.2.stable/godot.js"></script>
+		<script>
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":8829552,"index.wasm":37695054},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_THREADS_ENABLED = false;
+const engine = new Engine(GODOT_CONFIG);
+
+(function () {
+	const statusOverlay = document.getElementById('status');
+	const statusProgress = document.getElementById('status-progress');
+	const statusNotice = document.getElementById('status-notice');
+
+	let initializing = true;
+	let statusMode = '';
+
+	function setStatusMode(mode) {
+		if (statusMode === mode || !initializing) {
+			return;
+		}
+		if (mode === 'hidden') {
+			statusOverlay.remove();
+			initializing = false;
+			return;
+		}
+		statusOverlay.style.visibility = 'visible';
+		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
+		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
+		statusMode = mode;
+	}
+
+	function setStatusNotice(text) {
+		while (statusNotice.lastChild) {
+			statusNotice.removeChild(statusNotice.lastChild);
+		}
+		const lines = text.split('\n');
+		lines.forEach((line) => {
+			statusNotice.appendChild(document.createTextNode(line));
+			statusNotice.appendChild(document.createElement('br'));
+		});
+	}
+
+	function displayFailureNotice(err) {
+		console.error(err);
+		if (err instanceof Error) {
+			setStatusNotice(err.message);
+		} else if (typeof err === 'string') {
+			setStatusNotice(err);
+		} else {
+			setStatusNotice('An unknown error occurred.');
+		}
+		setStatusMode('notice');
+		initializing = false;
+	}
+
+	const missing = Engine.getMissingFeatures({
+		threads: GODOT_THREADS_ENABLED,
+	});
+
+	if (missing.length !== 0) {
+		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
+			let serviceWorkerRegistrationPromise;
+			try {
+				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
+			} catch (err) {
+				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
+			}
+			// There's a chance that installing the service worker would fix the issue
+			Promise.race([
+				serviceWorkerRegistrationPromise.then((registration) => {
+					if (registration != null) {
+						return Promise.reject(new Error('Service worker already exists.'));
+					}
+					return registration;
+				}).then(() => engine.installServiceWorker()),
+				// For some reason, `getRegistration()` can stall
+				new Promise((resolve) => {
+					setTimeout(() => resolve(), 2000);
+				}),
+			]).then(() => {
+				// Reload if there was no error.
+				window.location.reload();
+			}).catch((err) => {
+				console.error('Error while registering service worker:', err);
+			});
+		} else {
+			// Display the message as usual
+			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
+			displayFailureNotice(missingMsg + missing.join('\n'));
+		}
+	} else {
+		setStatusMode('progress');
+		engine.startGame({
+			'onProgress': function (current, total) {
+				if (current > 0 && total > 0) {
+					statusProgress.value = current;
+					statusProgress.max = total;
+				} else {
+					statusProgress.removeAttribute('value');
+					statusProgress.removeAttribute('max');
+				}
+			},
+		}).then(() => {
+			setStatusMode('hidden');
+		}, displayFailureNotice);
+	}
+}());
+		</script>
+	</body>
+</html>
+

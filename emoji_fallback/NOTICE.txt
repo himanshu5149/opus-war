@@ -1,0 +1,44 @@
+Bundled fonts (harness-provided default project font + fallback chain)
+=====================================================================
+
+This directory bundles the project's default UI font plus a chain of fallback
+fonts, ALL licensed under the SIL Open Font License, Version 1.1 (see OFL.txt).
+They are wired together via emoji_fallback_font.tres as a single FontVariation
+(base_font + an ordered `fallbacks` array) and set as the project's default
+font (gui/theme/custom_font), so emoji AND symbols render on web export instead
+of ".notdef" tofu boxes — without overriding any font a game sets for itself.
+
+1. NotoSans-Regular.ttf — Noto Sans (base default UI font)
+   Copyright 2022 The Noto Project Authors
+   (https://github.com/notofonts/latin-greek-cyrillic)
+
+2. NotoEmoji-Regular.ttf — Noto Emoji (monochrome emoji fallback)
+   Copyright 2013 Google LLC
+
+3. NotoSansSymbols-Regular.ttf — Noto Sans Symbols (arrows, music notes, misc symbols)
+   Copyright 2022 The Noto Project Authors (https://github.com/notofonts/symbols)
+
+4. NotoSansSymbols2-Regular.ttf — Noto Sans Symbols 2 (stars, checks, geometric shapes, dingbats)
+   Copyright 2022 The Noto Project Authors (https://github.com/notofonts/symbols)
+
+5. NotoSansArabic-Regular.ttf — Noto Sans Arabic (Arabic script)
+   Copyright 2022 The Noto Project Authors (https://github.com/notofonts/arabic)
+
+6. NotoSansMonoBoxDrawing-Regular.ttf — box-drawing + block-element glyphs
+   A SUBSET (Unicode ranges U+2500–U+257F and U+2580–U+259F only) of
+   Noto Sans Mono, produced with fontTools.subset to keep the file tiny.
+   Copyright 2022 The Noto Project Authors
+   (https://github.com/notofonts/latin-greek-cyrillic)
+
+7. NotoSansMathSubset-Regular.ttf — math operators + rotational/supplemental arrows
+   A SUBSET (Unicode ranges U+2190–U+21FF, U+2200–U+22FF, U+27F0–U+27FF,
+   U+2900–U+297F only) of Noto Sans Math, produced with fontTools.subset.
+   Copyright 2022 Google LLC. All Rights Reserved.
+
+Fonts 1–5 are unmodified static instances (weight 400) of the upstream Noto
+fonts. Fonts 6 and 7 are unmodified-glyph SUBSETS (glyphs removed only; none
+added or altered) of the corresponding upstream Noto fonts — the OFL permits
+this, and Noto fonts declare no Reserved Font Names.
+
+The SIL Open Font License requires that this copyright/license notice ship with
+the fonts; OFL.txt contains the full license text and every copyright statement.

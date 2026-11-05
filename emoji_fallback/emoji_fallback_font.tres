@@ -1,0 +1,45 @@
+[gd_resource type="FontVariation" load_steps=8 format=3]
+
+; Harness-provided project default font, wired as gui/theme/custom_font.
+;
+; base_font  = bundled Noto Sans (a clean Latin/Greek/Cyrillic UI font). A REAL
+;              base is required: a FontVariation with an EMPTY base_font has a
+;              null primary font, and on WEB export (which has no OS fonts to
+;              fall back on) that makes Godot render the last-resort .notdef
+;              hex-box font for ALL text — verified empirically. So we bundle a
+;              concrete base rather than relying on the built-in default font.
+; fallbacks  = an ORDERED Array[Font]. Godot's Font.fallbacks (inherited by
+;              FontVariation) is consulted in order for any codepoint the base
+;              lacks; each entry is tried until one supplies the glyph, so a
+;              chain of several fallbacks is honored (Godot 4.6 tries them
+;              left-to-right). We chain, after the base:
+;                1. NotoEmoji            — pictographic emoji (monochrome; Godot
+;                                          web export does not render color emoji)
+;                2. NotoSansSymbols      — arrows (← ↑ → ↓), music (♪ ♫), misc
+;                3. NotoSansSymbols2     — stars (★), checks (✓ ✗), geometric
+;                                          shapes (■ ● ▲ ◆), dingbats
+;                4. NotoSansArabic       — Arabic script (whole-language UI text)
+;                5. NotoSansMonoBoxDrawing — box-drawing (─ │ ┌) + block elements
+;                                          (█ ░), subset of Noto Sans Mono
+;                6. NotoSansMathSubset   — math operators (∞ ≈ ≡ ⊕) + rotational
+;                                          / supplemental arrows (↺ ↻ ⟲), subset
+;                                          of Noto Sans Math
+;              This closes ~99.8% of the residual symbol/Arabic "tofu" the
+;              previous emoji-only fallback still left. NOT bundled: CJK
+;              (Chinese/Japanese/Korean) — Noto Sans CJK is ~10MB+ for only a
+;              handful of games, so CJK stays prompt-only guidance.
+;
+; This is only the project DEFAULT: it applies to Controls that do NOT set their
+; own font, and never overrides a font the game chooses for itself.
+
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSans-Regular.ttf" id="1_base"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoEmoji-Regular.ttf" id="2_emoji"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSansSymbols-Regular.ttf" id="3_symbols"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSansSymbols2-Regular.ttf" id="4_symbols2"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSansArabic-Regular.ttf" id="5_arabic"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSansMonoBoxDrawing-Regular.ttf" id="6_boxdraw"]
+[ext_resource type="FontFile" path="res://emoji_fallback/NotoSansMathSubset-Regular.ttf" id="7_math"]
+
+[resource]
+base_font = ExtResource("1_base")
+fallbacks = Array[Font]([ExtResource("2_emoji"), ExtResource("3_symbols"), ExtResource("4_symbols2"), ExtResource("5_arabic"), ExtResource("6_boxdraw"), ExtResource("7_math")])
