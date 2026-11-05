@@ -1,0 +1,8 @@
+{
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/index.wasm", "destination": "https://pub-265459c7a52643fbaf39d59c99be6a7e.r2.dev/godot/4.6.2.stable/godot.wasm" },
+    { "source": "/index.audio.worklet.js", "destination": "https://pub-265459c7a52643fbaf39d59c99be6a7e.r2.dev/godot/4.6.2.stable/godot.audio.worklet.js" },
+    { "source": "/index.audio.position.worklet.js", "destination": "https://pub-265459c7a52643fbaf39d59c99be6a7e.r2.dev/godot/4.6.2.stable/godot.audio.position.worklet.js" }
+  ]
+}
